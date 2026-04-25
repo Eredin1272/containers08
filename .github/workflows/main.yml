@@ -9,6 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug tests
+        run: docker exec container ls -l /var/www/html/tests  
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build the Docker image
