@@ -19,6 +19,11 @@ jobs:
         run: docker cp ./tests container:/var/www/html
       - name: Up the container
         run: docker start container
+      - name: Prepare test environment
+        run: |
+          docker cp ./site container:/var/www/html/site
+          docker exec container mkdir -p /var/www/html/build
+          docker exec -i container sqlite3 -bail /var/www/html/build/test.sqlite < sql/schema.sql
       - name: Run tests
         run: docker exec container php /var/www/html/tests/tests.php
       - name: Stop the container
