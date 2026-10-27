@@ -1,9 +1,11 @@
 <?php
 
 require_once __DIR__ . '/testframework.php';
-require_once __DIR__ . '/../config.php';
-require_once __DIR__ . '/../modules/database.php';
-require_once __DIR__ . '/../modules/page.php';
+require_once __DIR__ . '/../site/config.php';
+require_once __DIR__ . '/../site/modules/database.php';
+require_once __DIR__ . '/../site/modules/page.php';
+
+$config["db"]["path"] = __DIR__ . '/../build/test.sqlite';
 
 $testFramework = new TestFramework();
 
@@ -34,7 +36,7 @@ function testDbRead() {
 }
 
 function testPageRender() {
-    $page = new Page(__DIR__ . '/../templates/index.tpl');
+    $page = new Page(__DIR__ . '/../site/templates/index.tpl');
     $html = $page->Render(["title" => "Test", "content" => "Hello"]);
     return assertExpression(strpos($html, "Test") !== false);
 }
@@ -47,4 +49,6 @@ $testFramework->add('Page render', 'testPageRender');
 
 $testFramework->run();
 
-echo $testFramework->getResult();
+echo $testFramework->getResult() . PHP_EOL;
+
+exit($testFramework->hasFailures() ? 1 : 0);
