@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true"
+         cacheDirectory=".phpunit.cache"
+         failOnEmptyTestSuite="true">
+    <testsuites>
+        <testsuite name="Application tests">
+            <directory>tests/phpunit</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
